@@ -23,8 +23,11 @@ async function run() {
 
         // POST API
         app.post('/users', async (req, res) => {
-            console.log('hitting the post');
-            res.send('hit the post');
+            if (req.body.name && req.body.email) {
+                const result = await users.insertOne(req.body);
+                console.log('hitting the post', req.body);
+                res.send(result);
+            }
         })
 
     } finally {
