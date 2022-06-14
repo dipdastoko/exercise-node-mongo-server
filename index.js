@@ -30,8 +30,10 @@ async function run() {
 
         app.get('/users/:id', async (req, res) => {
             const id = req.params.id;
-            console.log('load user with id', id);
-            res.send('user id');
+            const query = { _id: ObjectId(id) };
+            const result = await users.findOne(query);
+            console.log('load user with id', result);
+            res.send(result);
         })
 
         // POST API
