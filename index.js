@@ -21,12 +21,19 @@ async function run() {
         const database = client.db("exercise-2");
         const users = database.collection("find");
 
+        // GET API 
+        app.get('/users', async (req, res) => {
+            const usersData = users.find({});
+            const allUser = await usersData.toArray();
+            res.send(allUser);
+        })
+
         // POST API
         app.post('/users', async (req, res) => {
             if (req.body.name && req.body.email) {
                 const result = await users.insertOne(req.body);
                 console.log('hitting the post', req.body);
-                res.send(result);
+                res.json(result);
             }
         })
 
