@@ -26,7 +26,7 @@ async function run() {
             const usersData = users.find({});
             const allUser = await usersData.toArray();
             res.send(allUser);
-        })
+        });
 
         // POST API
         app.post('/users', async (req, res) => {
@@ -35,6 +35,15 @@ async function run() {
                 console.log('hitting the post', req.body);
                 res.json(result);
             }
+        });
+
+        // DELETE API 
+        app.delete('/users/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await users.deleteOne(query);
+            console.log('deleting user with id', result.deletedCount);
+            res.json(result);
         })
 
     } finally {
