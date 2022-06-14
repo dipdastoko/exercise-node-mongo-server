@@ -28,6 +28,12 @@ async function run() {
             res.send(allUser);
         });
 
+        app.get('/users/:id', async (req, res) => {
+            const id = req.params.id;
+            console.log('load user with id', id);
+            res.send('user id');
+        })
+
         // POST API
         app.post('/users', async (req, res) => {
             if (req.body.name && req.body.email) {
