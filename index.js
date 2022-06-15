@@ -32,7 +32,6 @@ async function run() {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const result = await users.findOne(query);
-            console.log('load user with id', result);
             res.send(result);
         });
 
@@ -43,6 +42,24 @@ async function run() {
                 console.log('hitting the post', req.body);
                 res.json(result);
             }
+        });
+
+        // UPDATE
+        app.put('/users/:id', async (req, res) => {
+            const id = req.params.id;
+            const updatedUser = req.body;
+
+            const filter = { _id: ObjectId(id) };
+            const options = { upsert: true };
+            const updateDoc = {
+                $set: {
+                    name: updatedUser.name,
+                    email: updatedUser.email
+                },
+            };
+            const result = await users.updateOne(filter, updateDoc, options);
+            console.log('updating user', result);
+            res.json(result);
         });
 
         // DELETE API 
