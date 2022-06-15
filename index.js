@@ -34,7 +34,7 @@ async function run() {
             const result = await users.findOne(query);
             console.log('load user with id', result);
             res.send(result);
-        })
+        });
 
         // POST API
         app.post('/users', async (req, res) => {
